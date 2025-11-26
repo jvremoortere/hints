@@ -2,8 +2,12 @@ import { GoogleGenAI, Type } from "@google/genai";
 
 const getClient = () => {
   const apiKey = process.env.API_KEY;
+  
+  // Debug log to check if key is loaded in production (Do not log the full key)
+  console.log("Gemini Client Init. Key available?", !!apiKey, "Length:", apiKey?.length);
+
   if (!apiKey) {
-    throw new Error("API Key is missing");
+    throw new Error("API Key is missing. Zorg dat API_KEY is ingesteld in Vercel Environment Variables.");
   }
   return new GoogleGenAI({ apiKey });
 };

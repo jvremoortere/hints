@@ -70,8 +70,11 @@ export const ConceptInput: React.FC<ConceptInputProps> = ({ onConceptsUpdate }) 
       onConceptsUpdate(extracted);
       setSuccessMsg(`Succes! ${extracted.length} begrippen gevonden. Controleer de lijst hieronder.`);
       
-    } catch (err) {
-      setError("Er is iets misgegaan bij het analyseren van de tekst. Controleer je API key of probeer het opnieuw.");
+    } catch (err: any) {
+      console.error("AI Extraction Error:", err);
+      // Show the actual error message to help debugging in production
+      const errorMsg = err?.message || "Onbekende fout";
+      setError(`Fout: ${errorMsg}. Check Vercel logs/settings.`);
     } finally {
       setIsProcessing(false);
     }
